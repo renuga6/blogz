@@ -19,6 +19,14 @@ class Entry(db.Model):
         self.body=body
         self.created_on= datetime.utcnow()
 
+    def is_valid(self):
+    
+       if self.title and self.body and self.created_on:
+            return True
+       else:
+            return False
+
+
 @app.route("/")
 def index():
 
@@ -40,9 +48,18 @@ def new_entry():
         title_name = request.form['title']
         body_name = request.form['body']
         entrobj = Entry(title_name,body_name)
-        db.session.add(entrobj)
-        db.session.commit()
-        return redirect('/')    
+
+        if entrobj.is_valid():
+            db.session.add(entrobj)
+            db.session.commit()
+
+            return redirect('/')    
+        
+        else:
+            
+            return render_template('new_entry.html',title="Create new blog entry",new_entry_title=entrobj.title,
+                new_entry_body=entrobj.body,errorvar="Please check your entry for errors. Both a title and a body are required.")
+   
 
     return render_template('new_entry.html',title="Add a Blog")
 
