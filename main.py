@@ -53,7 +53,7 @@ def new_entry():
             db.session.add(entrobj)
             db.session.commit()
 
-            return redirect('/')    
+            return redirect('/blog?id='+str(entrobj.id))    
         
         else:
             
