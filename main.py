@@ -47,7 +47,7 @@ class User(db.Model):
 @app.before_request        
 def require_login(): 
 
-    allowed_routes=['login','signup','index','userblog','allblog'] 
+    allowed_routes=['login','signup','index','userblog','allblog','disp_blog_entries'] 
     if request.endpoint not in allowed_routes and 'email' not in session:
         return redirect('/login')     
 
@@ -129,9 +129,9 @@ def allblog():
 @app.route("/blog")
 def disp_blog_entries():
 
-    owner=User.query.filter_by(email=session['email']).first() 
     entry_id = request.args.get('id')
     if entry_id is None:
+        owner=User.query.filter_by(email=session['email']).first() 
         all_records = Entry.query.filter_by(owner=owner).all() 
         return render_template('all_entry.html',title="Build a Blog",all_entries = all_records)
     else:

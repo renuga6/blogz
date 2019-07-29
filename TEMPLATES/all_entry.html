@@ -10,7 +10,7 @@
                 </h2>
                 <p>{{ entry.body }}</p>
                 <p>{{ entry.created_on }}</p>
-                <p id="author">Written by <a href="blog?user={{entry.owner.id}}">{{entry.owner.email}}</a></p>
+                <p id="author">Written by <a href="userblog?userid={{entry.owner.id}}">{{entry.owner.email}}</a></p>
             </li>
         {% endfor %}
     </ul>
