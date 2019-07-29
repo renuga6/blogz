@@ -80,7 +80,6 @@ def signup():
        password=request.form['password']
        verify=request.form['verify']
 
-       # do the validation from signup assignment
        existing_user=User.query.filter_by(email=username).first()
        if len(username) < 3:
             username_error = "Usernames must be longer than 3 characters."
